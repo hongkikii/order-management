@@ -66,4 +66,11 @@ public class SimpleOrderService {
                     productRepository.update(product);
                 });
     }
+
+    public OrderResponseDto findById(Long orderId) {
+        Order order = orderRepository.findById(orderId);
+
+        OrderResponseDto orderResponseDto = OrderResponseDto.toDto(order);
+        return orderResponseDto;
+    }
 }

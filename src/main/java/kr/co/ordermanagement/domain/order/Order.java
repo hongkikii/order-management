@@ -35,6 +35,10 @@ public class Order {
         this.id = id;
     }
 
+    public boolean sameId(Long id) {
+        return this.id.equals(id);
+    }
+
     private Integer calculateTotalPrice(List<Product> orderedProducts) {
         return orderedProducts
                 .stream()
