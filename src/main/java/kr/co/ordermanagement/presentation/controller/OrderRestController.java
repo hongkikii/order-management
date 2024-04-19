@@ -2,11 +2,13 @@ package kr.co.ordermanagement.presentation.controller;
 
 import java.util.List;
 import kr.co.ordermanagement.application.SimpleOrderService;
+import kr.co.ordermanagement.presentation.dto.ChangeStateRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderProductRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +35,13 @@ public class OrderRestController {
     @GetMapping("/orders/{orderId}")
     public ResponseEntity<OrderResponseDto> getOrderById(@PathVariable Long orderId) {
         OrderResponseDto orderResponseDto = simpleOrderService.findById(orderId);
+        return ResponseEntity.ok(orderResponseDto);
+    }
+
+    @PatchMapping("/orders/{orderId}")
+    public ResponseEntity<OrderResponseDto> changeOrderState(@PathVariable Long orderId,
+                                                             @RequestBody ChangeStateRequestDto changeStateRequestDto) {
+        OrderResponseDto orderResponseDto = simpleOrderService.changeState(orderId, changeStateRequestDto);
         return ResponseEntity.ok(orderResponseDto);
     }
 }
