@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import kr.co.ordermanagement.domain.exception.EntityNotFoundException;
 import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
+import kr.co.ordermanagement.domain.order.State;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -30,7 +31,7 @@ public class ListOrderRepository implements OrderRepository {
     }
 
     @Override
-    public List<Order> findByState(String state) {
+    public List<Order> findByState(State state) {
         return orders.stream()
                 .filter(order -> order.sameState(state))
                 .toList();

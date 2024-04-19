@@ -2,14 +2,15 @@ package kr.co.ordermanagement.presentation.dto;
 
 import java.util.List;
 import kr.co.ordermanagement.domain.order.Order;
+import kr.co.ordermanagement.domain.order.State;
 
 public class OrderResponseDto {
     private Long id;
     private List<ProductDto> orderedProducts;
     private Integer totalPrice;
-    private String state;
+    private State state;
 
-    public OrderResponseDto(Long id, List<ProductDto> orderedProducts, Integer totalPrice, String state) {
+    public OrderResponseDto(Long id, List<ProductDto> orderedProducts, Integer totalPrice, State state) {
         this.id = id;
         this.orderedProducts = orderedProducts;
         this.totalPrice = totalPrice;
@@ -28,7 +29,7 @@ public class OrderResponseDto {
         return totalPrice;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 
