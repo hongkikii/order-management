@@ -26,7 +26,6 @@ public class OrderRestController {
         this.simpleOrderService = simpleOrderService;
     }
 
-    // 상품 주문 API
     @PostMapping("/orders")
     public ResponseEntity<OrderResponseDto> createOrder(
             @RequestBody List<OrderProductRequestDto> orderCreateRequestDtos) {
@@ -34,14 +33,12 @@ public class OrderRestController {
         return ResponseEntity.ok(orderResponseDto);
     }
 
-    // 주문번호로 조회 API
     @GetMapping("/orders/{orderId}")
     public ResponseEntity<OrderResponseDto> getOrderById(@PathVariable Long orderId) {
         OrderResponseDto orderResponseDto = simpleOrderService.findById(orderId);
         return ResponseEntity.ok(orderResponseDto);
     }
 
-    // 주문 상태 강제 변경 API
     @PatchMapping("/orders/{orderId}")
     public ResponseEntity<OrderResponseDto> changeOrderState(@PathVariable Long orderId,
                                                              @RequestBody ChangeStateRequestDto changeStateRequestDto) {
@@ -49,7 +46,6 @@ public class OrderRestController {
         return ResponseEntity.ok(orderResponseDto);
     }
 
-    // 주문 상태로 조회 API
     @GetMapping("/orders")
     public ResponseEntity<List<OrderResponseDto>> getOrdersByState(@RequestParam State state) {
         List<OrderResponseDto> orderResponseDtos = simpleOrderService.findByState(state);
