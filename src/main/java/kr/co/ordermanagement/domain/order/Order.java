@@ -49,4 +49,8 @@ public class Order {
     public void changeStateForce(String state) {
         this.state = state;
     }
+
+    public boolean sameState(String state) {
+        return this.state.equals(state);
+    }
 }

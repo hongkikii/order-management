@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +27,8 @@ public class OrderRestController {
 
     // 상품 주문 API
     @PostMapping("/orders")
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody List<OrderProductRequestDto> orderCreateRequestDtos) {
+    public ResponseEntity<OrderResponseDto> createOrder(
+            @RequestBody List<OrderProductRequestDto> orderCreateRequestDtos) {
         OrderResponseDto orderResponseDto = simpleOrderService.createOrder(orderCreateRequestDtos);
         return ResponseEntity.ok(orderResponseDto);
     }
@@ -38,10 +40,18 @@ public class OrderRestController {
         return ResponseEntity.ok(orderResponseDto);
     }
 
+    // 주문 상태 강제 변경 API
     @PatchMapping("/orders/{orderId}")
     public ResponseEntity<OrderResponseDto> changeOrderState(@PathVariable Long orderId,
                                                              @RequestBody ChangeStateRequestDto changeStateRequestDto) {
         OrderResponseDto orderResponseDto = simpleOrderService.changeState(orderId, changeStateRequestDto);
         return ResponseEntity.ok(orderResponseDto);
+    }
+
+    // 주문 상태로 조회 API
+    @GetMapping("/orders")
+    public ResponseEntity<List<OrderResponseDto>> getOrdersByState(@RequestParam String state) {
+        List<OrderResponseDto> orderResponseDtos = simpleOrderService.findByState(state);
+        return ResponseEntity.ok(orderResponseDtos);
     }
 }

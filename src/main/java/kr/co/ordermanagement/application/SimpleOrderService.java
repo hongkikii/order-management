@@ -83,4 +83,13 @@ public class SimpleOrderService {
         OrderResponseDto orderResponseDto = OrderResponseDto.toDto(order);
         return orderResponseDto;
     }
+
+    public List<OrderResponseDto> findByState(String state) {
+        List<Order> orders = orderRepository.findByState(state);
+
+        List<OrderResponseDto> orderResponseDtos = orders.stream()
+                .map(order -> OrderResponseDto.toDto(order))
+                .toList();
+        return orderResponseDtos;
+    }
 }
